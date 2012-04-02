@@ -1,0 +1,56 @@
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<title>magic</title> 
+<script src="http://lib.sinaapp.com/js/jquery/1.6/jquery.min.js"></script>
+<script src="magic.js"></script>
+<script src="render.js"></script>
+</head> 
+<style>
+	.col{margin:5px;}
+	.block{position: absolute;background:#555;margin:1px;line-height:30px;text-align:center;width:30px;height:30px;float:left;color:#fff}
+	.clear{clear:both}</style>
+<body> 
+魔方维度：<input id="weidu" value="3"></input>
+渲染方式：<select id="render"><option value="1">简单渲染</option><option value="2">html5渲染</option></select>
+<button id="change">重新渲染</button><button id="check">完成？</button><br/>
+<input id="leftindex" value="0"/><button id="left">turn left</button>
+<input id="rightindex" value="0"/><button id="right">turn right</button>
+<input id="upindex" value="0"/><button id="up">turn up</button>
+<input id="downindex" value="0"/><button id="down">turn down</button>
+<div id="container"></div>
+<canvas id="c"></canvas>  
+</body> 
+</html>
+<script>
+$(function(){  
+	var m = magic(2,easyrender).__init__(); 
+	$("#change").click(function(){
+		$("#container").html('');
+		if($("#render").val()==1){
+			m = magic($("#weidu").val(),easyrender).__init__();
+		}else{
+			m = magic($("#weidu").val(),html5render).__init__();
+		}
+	});
+	$("#left").click(function(){
+		m.turnleft($("#leftindex").val());
+	});
+	$("#right").click(function(){
+		m.turnright($("#rightindex").val());
+	});
+	$("#up").click(function(){
+		m.turnup($("#upindex").val());
+	});
+	$("#down").click(function(){
+		m.turndown($("#downindex").val());
+	});
+	$("#check").click(function(){
+		if(m.check()){
+			alert("ok");
+		}else{
+			alert("no");
+		}
+		
+	})
+	});</script>
